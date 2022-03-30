@@ -1,0 +1,10 @@
+/out/
+*.class
+*.ctxt
+*.pkg
+*.pkh
+.bluej
+bin/*
+
+
+/bin/
