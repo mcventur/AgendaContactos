@@ -6,6 +6,7 @@ import ut7.agenda.modelo.Profesional;
 import ut7.agenda.modelo.Relacion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestProfesionalPersonal {
 
