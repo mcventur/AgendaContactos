@@ -1,3 +1,7 @@
+package ut7.agenda.io;
+
+import ut7.agenda.modelo.AgendaContactos;
+import ut7.agenda.modelo.Contacto;
 
 /**
  * Utilidades para cargar la agenda

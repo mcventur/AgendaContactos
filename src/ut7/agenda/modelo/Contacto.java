@@ -1,3 +1,5 @@
+package ut7.agenda.modelo;
+
 public class Contacto {
 	private String nombre;
 	private String apellidos;

@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="utilidadesFecha">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../../MisLibrerias/utilidadesFecha.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../../MisLibrerias/utilidadesFecha.jar!/" />
+    </SOURCES>
+  </library>
+</component>
