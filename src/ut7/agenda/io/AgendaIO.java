@@ -1,7 +1,6 @@
 package ut7.agenda.io;
 
-import ut7.agenda.modelo.AgendaContactos;
-import ut7.agenda.modelo.Contacto;
+import ut7.agenda.modelo.*;
 
 /**
  * Utilidades para cargar la agenda
@@ -9,12 +8,25 @@ import ut7.agenda.modelo.Contacto;
 public class AgendaIO {
 
 	public static void importar(AgendaContactos agenda) {
-
+		for (String linea : obtenerLineasDatos()) {
+			agenda.añadirContacto(parsearLinea(linea));
+		}
 	}
 
 	private static Contacto parsearLinea(String linea) {
-		return null;
+		String[] trozos=linea.split(",");
+		//Quito espacios sobrantes de todos los trozos
+		for (int i = 0; i < trozos.length; i++) {
+			trozos[i] = trozos[i].trim();
+		}
 
+		if(trozos[0].equals("1")){
+			return new Profesional(trozos[1],trozos[2],trozos[3],trozos[4],trozos[5]);
+		}
+		else{
+			Relacion rel= Relacion.valueOf(trozos[6].toUpperCase());
+			return new Personal(trozos[1],trozos[2],trozos[3],trozos[4],trozos[5],rel);
+		}
 	}
 
 	/**

@@ -114,4 +114,11 @@ public abstract class Contacto implements Comparable<Contacto>{
 				" (" + getClass().getSimpleName().toUpperCase() + ")" + "\n"
 				+ "Tfno: " + telefono + " | email: " + email;
 	}
+	/**
+	 * Añadida al proyecto base
+	 * Devuelve el nombre completo (apellidos y nombre) de un contacto.
+	 */
+	public String getNombreCompleto() {
+		return getApellidos() + " " + getNombre();
+	}
 }
