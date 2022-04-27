@@ -1,6 +1,4 @@
-package ut7.agenda.modelo;
-
-import java.util.Objects;
+package agenda.modelo;
 
 public abstract class Contacto implements Comparable<Contacto>{
 	private String nombre;

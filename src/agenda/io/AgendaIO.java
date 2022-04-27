@@ -1,6 +1,6 @@
-package ut7.agenda.io;
+package agenda.io;
 
-import ut7.agenda.modelo.*;
+import agenda.modelo.*;
 
 /**
  * Utilidades para cargar la agenda
