@@ -8,3 +8,5 @@ bin/*
 
 
 /bin/
+/resources/agenda.csv
+/resources/personales-relacion.txt

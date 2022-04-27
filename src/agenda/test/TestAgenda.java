@@ -6,6 +6,7 @@ import agenda.modelo.Contacto;
 import agenda.modelo.Personal;
 import agenda.modelo.Relacion;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,8 @@ public class TestAgenda {
 
 	public static void main(String[] args) {
 		AgendaContactos agenda = new AgendaContactos();
-		AgendaIO.importar(agenda);
+		int errores = AgendaIO.importar(agenda,"resources/agenda.csv");
+		System.out.println(errores + " lineas erróneas");
 		System.out.println(agenda);
 		separador();
 
@@ -35,6 +37,12 @@ public class TestAgenda {
 		separador();
 
 		personalesPorRelacion(agenda);
+		try {
+			AgendaIO.exportarPersonales(agenda, "resources/personales-relacion.txt");
+		}
+		catch(IOException e){
+			System.out.println("Error de escritura en fichero: " + e.getMessage());
+		}
 		separador();
 
 	}
