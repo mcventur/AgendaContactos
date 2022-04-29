@@ -14,36 +14,46 @@ import java.util.Map;
 public class TestAgenda {
 
 	public static void main(String[] args) {
+
 		AgendaContactos agenda = new AgendaContactos();
-		int errores = AgendaIO.importar(agenda,"resources/agenda.csv");
-		System.out.println(errores + " lineas erróneas");
-		System.out.println(agenda);
-		separador();
-
-		buscarContactos(agenda, "acos");
-		separador();
-
-		buscarContactos(agenda, "don");
-		separador();
-
-		felicitar(agenda);
-		separador();
-
-		personalesOrdenadosPorFecha(agenda, 'm');
-		separador();
-		personalesOrdenadosPorFecha(agenda, 'e');
-		separador();
-		personalesOrdenadosPorFecha(agenda, 'w');
-		separador();
-
-		personalesPorRelacion(agenda);
+		int errores = 0;
 		try {
-			AgendaIO.exportarPersonales(agenda, "resources/personales-relacion.txt");
+			errores = AgendaIO.importar(agenda,args[0]);
+			System.out.println(errores + " lineas erróneas");
+			System.out.println(agenda);
+			separador();
+
+			buscarContactos(agenda, "acos");
+			separador();
+
+			buscarContactos(agenda, "don");
+			separador();
+
+			felicitar(agenda);
+			separador();
+
+			personalesOrdenadosPorFecha(agenda, 'm');
+			separador();
+			personalesOrdenadosPorFecha(agenda, 'e');
+			separador();
+			personalesOrdenadosPorFecha(agenda, 'w');
+			separador();
+
+			//personalesPorRelacion(agenda);
+			try {
+				AgendaIO.exportarPersonales(agenda, args[1]);
+			}
+			catch(IOException e){
+				System.out.println("Error de escritura en fichero: " + e.getMessage());
+			}
+			separador();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
 		}
-		catch(IOException e){
-			System.out.println("Error de escritura en fichero: " + e.getMessage());
+		catch(ArrayIndexOutOfBoundsException e){
+			System.out.println("Error en argumentos. Sintaxis: java TestAgenda <fichero_entrada> <fichero_salida>");
 		}
-		separador();
+
 
 	}
 

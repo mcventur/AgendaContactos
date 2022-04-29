@@ -1,5 +1,7 @@
 package agenda.modelo;
 
+import agenda.io.ContactoExcepcion;
+
 public abstract class Contacto implements Comparable<Contacto>{
 	private String nombre;
 	private String apellidos;
@@ -7,10 +9,13 @@ public abstract class Contacto implements Comparable<Contacto>{
 	private String email;
 
 	public Contacto(String nombre, String apellidos, String telefono,
-			String email) {
+			String email) throws ContactoExcepcion {
 		this.nombre = nombre.toUpperCase();
 		this.apellidos = apellidos.toUpperCase();
 		this.telefono = telefono;
+		if(email.isBlank()){
+			throw new ContactoExcepcion("El contacto  "+ nombre + ", " + apellidos  + " no tiene email");
+		}
 		this.email = email.toLowerCase();
 	}
 

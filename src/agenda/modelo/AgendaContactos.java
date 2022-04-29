@@ -1,5 +1,7 @@
 package agenda.modelo;
 
+import agenda.io.ContactoExcepcion;
+
 import java.util.*;
 
 public class AgendaContactos {
@@ -9,10 +11,13 @@ public class AgendaContactos {
 		agenda = new TreeMap<>();
 	}
 
-	public void añadirContacto(Contacto c) {
+	public void añadirContacto(Contacto c) throws ContactoExcepcion {
 		char inicial=Character.toUpperCase(c.getPrimeraLetra());
 
 		if(agenda.containsKey(inicial)){
+			if(agenda.get(inicial).contains(c)){
+				throw new ContactoExcepcion("El contacto " + c.getApellidos() + ", " + c.getNombre()  + " ya está en la agenda");
+			}
 			agenda.get(inicial).add(c);
 		}
 		else{
@@ -67,7 +72,7 @@ public class AgendaContactos {
 
 	public List<Personal> personalesEnLetra(char letra) {
 		//Paso la letra a máyuscula
-		letra = charMayus(letra);
+		letra = Character.toUpperCase(letra);
 
 		if(agenda.containsKey(letra)){
 			List<Personal> retorno=new ArrayList<>();
@@ -80,12 +85,6 @@ public class AgendaContactos {
 			return retorno;
 		}
 		else return null;
-	}
-
-	private char charMayus(char letra) {
-		String strLetra= String.valueOf(letra).toUpperCase();
-		letra = strLetra.charAt(0);
-		return letra;
 	}
 
 	public List<Personal> felicitar() {
@@ -132,7 +131,7 @@ public class AgendaContactos {
 	}
 
 	public List<Personal> personalesOrdenadosPorFechaNacimiento(char letra) {
-		letra = charMayus(letra);
+		letra = Character.toUpperCase(letra);
 		List<Personal> retorno=new ArrayList<>();
 		if(agenda.containsKey(letra)){
 			//Recuperamos la lista

@@ -13,37 +13,40 @@ import java.util.Map;
  */
 public class AgendaIO {
 
-	public static int importar(AgendaContactos agenda, String nomFichero) {
+	public static int importar(AgendaContactos agenda, String nomFichero) throws IOException{
 		/*for (String linea : obtenerLineasDatos()) {
 			agenda.añadirContacto(parsearLinea(linea));
 		}*/
 		int errores=0;
-		try(BufferedReader entrada = new BufferedReader(new FileReader(nomFichero))){
+		Contacto c = null;
+		try(BufferedReader entrada = new BufferedReader(new FileReader(nomFichero));
+		){
 			String linea = entrada.readLine();
 			while(linea!=null){
 				try {
-					agenda.añadirContacto(parsearLinea(linea));
+					c = parsearLinea(linea);
+					agenda.añadirContacto(c);
 				}
-				catch(IllegalArgumentException|DateTimeParseException e){
+/*				catch (ContactoProfesionalExcepcion e){
 					errores++;
+					System.out.println("La línea \" " + linea + "\" no incluye empresa");
+				}*/
+				catch(RuntimeException|ContactoExcepcion e){
+					errores++;
+					System.out.println(e.getMessage());
 				}
 				linea = entrada.readLine();
 			}
-		} catch (FileNotFoundException e) {
-			System.out.println("Fichero no encontrado: " + e.getMessage());
-		} catch (IOException e) {
-			System.out.println("Error de apertura del fichero: " + e.getMessage());
 		}
 		return errores;
 	}
 
-	private static Contacto parsearLinea(String linea) throws DateTimeParseException,IllegalArgumentException {
+	private static Contacto parsearLinea(String linea) throws DateTimeParseException, IllegalArgumentException, ContactoExcepcion {
 		String[] trozos=linea.split(",");
 		//Quito espacios sobrantes de todos los trozos
 		for (int i = 0; i < trozos.length; i++) {
 			trozos[i] = trozos[i].trim();
 		}
-
 		if(trozos[0].equals("1")){
 			return new Profesional(trozos[1],trozos[2],trozos[3],trozos[4],trozos[5]);
 		}
@@ -51,6 +54,7 @@ public class AgendaIO {
 			Relacion rel= Relacion.valueOf(trozos[6].toUpperCase());
 			return new Personal(trozos[1],trozos[2],trozos[3],trozos[4],trozos[5],rel);
 		}
+
 	}
 
 	/**

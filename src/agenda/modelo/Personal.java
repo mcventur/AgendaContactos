@@ -1,5 +1,6 @@
 package agenda.modelo;
 
+import agenda.io.ContactoExcepcion;
 import utilidades.fecha.Utilidades;
 
 import java.time.LocalDate;
@@ -9,9 +10,10 @@ public class Personal extends Contacto{
 	private LocalDate fechaNac;
 	private Relacion relacion;
 
-	public Personal(String nombre, String apellidos, String telefono, String email, String fechaNac, Relacion relacion) {
+	public Personal(String nombre, String apellidos, String telefono, String email, String fechaNac, Relacion relacion)
+			throws ContactoExcepcion {
 		super(nombre, apellidos, telefono, email);
-		this.fechaNac= Utilidades.parsear(fechaNac);
+		this.fechaNac=Utilidades.parsear(fechaNac);
 		this.relacion = relacion;
 	}
 

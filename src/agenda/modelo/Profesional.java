@@ -1,5 +1,8 @@
 package agenda.modelo;
 
+import agenda.io.ContactoExcepcion;
+import agenda.io.ContactoProfesionalExcepcion;
+
 import java.util.Random;
 
 public class Profesional extends Contacto{
@@ -9,8 +12,12 @@ public class Profesional extends Contacto{
 	 * Constructor de la clase Profesional
 	 * El nombre de la empresa se guarda siempre capitalizado,
 	 */
-	public Profesional(String nombre, String apellidos, String telefono, String email, String empresa) {
+	public Profesional(String nombre, String apellidos, String telefono, String email, String empresa)
+			throws ContactoExcepcion {
 		super(nombre, apellidos, telefono, email);
+		if(empresa.isBlank()){
+			throw new ContactoProfesionalExcepcion("El contacto  profesional " + nombre + ", " + apellidos  + " no tiene empresa");
+		}
 		this.empresa = capitaliza(empresa); //capitaliza está declarado en la clase Contacto, como método estático
 	}
 

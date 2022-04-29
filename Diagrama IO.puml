@@ -1,0 +1,14 @@
+@startuml
+class ContactoExcepcion {
+- String mensaje
++ String getMessage()
++ String toString()
+}
+class ContactoProfesionalExcepcion {
+}
+
+
+
+IOException <|-- ContactoExcepcion
+ContactoExcepcion <|-- ContactoProfesionalExcepcion
+@enduml
