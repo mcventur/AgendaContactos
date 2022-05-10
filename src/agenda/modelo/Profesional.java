@@ -15,7 +15,7 @@ public class Profesional extends Contacto{
 	public Profesional(String nombre, String apellidos, String telefono, String email, String empresa)
 			throws ContactoExcepcion {
 		super(nombre, apellidos, telefono, email);
-		if(empresa.isBlank()){
+		if(empresa.isEmpty()){
 			throw new ContactoProfesionalExcepcion("El contacto  profesional " + nombre + ", " + apellidos  + " no tiene empresa");
 		}
 		this.empresa = capitaliza(empresa); //capitaliza está declarado en la clase Contacto, como método estático
