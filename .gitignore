@@ -8,7 +8,7 @@ bin/*
 
 
 /bin/
-/resources/agenda.csv
+/agenda.csv
 /resources/personales-relacion.txt
 /personales-relacion.txt
 /.idea/artifacts/AgendaContactosFases_SOL_jar.xml

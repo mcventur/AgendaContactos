@@ -6,6 +6,7 @@
     -fx-font-family: "Pt Sans";
     -fx-font-size: 14px;
     -fx-text-fill:  blue;
+    -fx-pref-width: 250;
 }
 .text-area {
 	-fx-border-color:  blue;
@@ -34,7 +35,7 @@
     -fx-background-color: #b4dec1;
 	-fx-border-color:   grey;
     -fx-border-radius:  4px;
-    
+
 }
 
 .radio-button {
