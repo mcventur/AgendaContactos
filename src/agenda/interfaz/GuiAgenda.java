@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
@@ -24,9 +25,10 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.util.*;
 
 public class GuiAgenda extends Application {
+    public static final String FALTA_IMPORTAR = "Debe importar previamente los contactos";
     private AgendaContactos agenda;
     private MenuItem itemImportar;
     private MenuItem itemExportarPersonales;
@@ -64,6 +66,8 @@ public class GuiAgenda extends Application {
         Scene scene = new Scene(root, 1100, 700);
         stage.setScene(scene);
         stage.setTitle("Agenda de contactos");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream(
+                "/images/addressbook-icon.png")));
         scene.getStylesheets().add(getClass().getResource("/application.css")
                 .toExternalForm());
         stage.show();
@@ -119,7 +123,7 @@ public class GuiAgenda extends Application {
         //Inicializamos los botones
         btnListar = new Button("Listar");
         btnPersonalesEnLetra = new Button("Contactos personales en letra");
-        btnPersonalesOrdenadosPorFecha = new Button("Contactos personales ordenados por fecha");
+        btnPersonalesOrdenadosPorFecha = new Button("Contactos personales\nordenados por fecha");
         btnClear = new Button("Clear");
         btnSalir = new Button("Salir");
         //Les damos la clase CSS ".botones"
@@ -133,12 +137,17 @@ public class GuiAgenda extends Application {
         VBox.setMargin(btnClear, new Insets(40, 0, 0, 0));
 
         //Asociamos manejadores al click de los botones
+        btnClear.setOnAction(e->clear());
         btnSalir.setOnAction(e -> salir());
+        btnListar.setOnAction(e->listar());
+        btnPersonalesEnLetra.setOnAction(e->contactosPersonalesEnLetra());
+        btnPersonalesOrdenadosPorFecha.setOnAction(e->personalesOrdenadosPorFecha());
 
 
-        //Vamos con los botones
+        //Añadimos al panel los elementos
         panel.getChildren().addAll(txtBuscar, rbtListarTodo, rbtListarSoloNumero, btnListar, btnPersonalesEnLetra,
                 btnPersonalesOrdenadosPorFecha, btnClear, btnSalir);
+
         return panel;
     }
 
@@ -158,7 +167,7 @@ public class GuiAgenda extends Application {
             boton.getStyleClass().add("botonletra");
             boton.setMaxSize(Integer.MAX_VALUE, Integer.MAX_VALUE);
             GridPane.setHgrow(boton, Priority.ALWAYS);
-            boton.setOnAction(e -> contactosEnLetra(abecedario.charAt(boton.getText().charAt(0))));
+            boton.setOnAction(e -> contactosEnLetra(boton.getText().charAt(0)));
             panel.add(boton, col, fila);
         }
         panel.setAlignment(Pos.CENTER);
@@ -204,6 +213,7 @@ public class GuiAgenda extends Application {
         //About
         itemAbout = new MenuItem("About");
         itemAbout.setAccelerator(KeyCombination.keyCombination("Ctrl+A"));
+        itemAbout.setOnAction(e->about());
         menuHelp.getItems().addAll(itemAbout);
 
         return barra;
@@ -256,25 +266,115 @@ public class GuiAgenda extends Application {
      */
     private void listar() {
         clear();
-        // a completar
+        if(itemImportar.isDisable()){//Ya se ha hecho la importacion
+            if (rbtListarTodo.isSelected()) {
+                areaTexto.setText(agenda.toString());
+            } else {
+                areaTexto.setText("Número de contactos: " + agenda.totalContactos()+"");
+            }
+        }
+        else{
+            areaTexto.setText(FALTA_IMPORTAR);
+        }
 
     }
 
     private void personalesOrdenadosPorFecha() {
         clear();
-        // a completar
+        if (itemImportar.isDisable()) {
+            Optional<Character> resul = choiceAbecedario();
+            if (resul.isPresent()) {
+                Character opcion = resul.get();
+                List<Personal> contactos = agenda.personalesOrdenadosPorFechaNacimiento(opcion);
+                if(contactos.isEmpty()){
+                    areaTexto.setText("No se han encontrado contactos para la letra " + opcion);
+                }
+                else{
+                    StringBuilder sb = new StringBuilder("Personales en la letra " + opcion + " ordenados por fecha" +
+                            "de nacimiento \n\n");
+                    for (Personal c : contactos) {
+                        sb.append(c).append("\n");
+                    }
+                    areaTexto.setText(sb.toString());
+                }
+            }
+            else {
+                //se ha pulsado cancel en el ChoiceDialog
+            }
+        }
+        else {
+            areaTexto.setText(FALTA_IMPORTAR);
+        }
 
     }
 
     private void contactosPersonalesEnLetra() {
         clear();
-        // a completar
+        if (itemImportar.isDisable()) {
+            Optional<Character> resul = choiceAbecedario();
+            if (resul.isPresent()) {
+                Character opcion = resul.get();
+                List<Personal> contactos = agenda.personalesEnLetra(opcion);
 
+                try {
+                    if(contactos.isEmpty()){
+                        areaTexto.setText("No se han encontrado contactos para la letra " + opcion);
+                    }
+                    else{
+                        StringBuilder sb = new StringBuilder("Personales en la letra " + opcion + "\n\n");
+                        for (Personal c : contactos) {
+                            sb.append(c).append("\n");
+                        }
+                        areaTexto.setText(sb.toString());
+                    }
+                } catch (NullPointerException e) {
+                    areaTexto.setText("No se han encontrado contactos para la letra " + opcion);
+                }
+            }
+            else {
+                //se ha pulsado cancel en el ChoiceDialog
+                //No hacemos nada
+            }
+        }
+        else {
+            areaTexto.setText(FALTA_IMPORTAR);
+        }
+
+    }
+
+    private Optional<Character> choiceAbecedario() {
+        String abecedario = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+        Character[] arrLetras = new Character[abecedario.length()];
+        for (int i = 0; i < abecedario.length(); i++) {
+            arrLetras[i]=abecedario.charAt(i);
+        }
+        ChoiceDialog<Character> dialogo = new ChoiceDialog<>('A',Arrays.asList(arrLetras));
+        dialogo.setTitle("Selector de letra");
+        dialogo.setHeaderText(null);
+        dialogo.setContentText("Elija letra");
+        Optional<Character> resul = dialogo.showAndWait();
+        return resul;
     }
 
     private void contactosEnLetra(char letra) {
         clear();
-        // a completar
+        if(itemImportar.isDisable()){//Ya se ha hecho la importacion
+            Set<Contacto> contactos = agenda.contactosEnLetra(letra);
+            if(contactos==null || contactos.isEmpty()){
+                areaTexto.setText("No hay contactos en la letra " + letra);
+            }
+            else{
+                StringBuilder sb = new StringBuilder("Contactos en la letra " + letra + "\n\n");
+                for (Contacto c : contactos) {
+                    sb.append(c).append("\n");
+                }
+                areaTexto.setText(sb.toString());
+            }
+
+        }
+        else{
+            areaTexto.setText(FALTA_IMPORTAR);
+        }
     }
 
     private void felicitar() {
@@ -296,8 +396,6 @@ public class GuiAgenda extends Application {
         else{
             areaTexto.setText("Debe importar los contactos antes de poder felicitar");
         }
-        // a completar
-
     }
 
     private String fechaHoy() {
@@ -328,8 +426,14 @@ public class GuiAgenda extends Application {
     }
 
     private void about() {
-        // a completar
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About Agenda de contactos");
+        alert.setHeaderText(null);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().
+                getResource("/application.css").toExternalForm());
+        alert.setContentText("Mi agenda de contactos");
+        alert.showAndWait();
     }
 
     private void clear() {
