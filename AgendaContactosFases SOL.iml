@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="utilidadesFecha" level="project" />
+    <orderEntry type="library" exported="" name="javafx17" level="application" />
   </component>
 </module>
