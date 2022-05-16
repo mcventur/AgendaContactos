@@ -13,9 +13,9 @@ public class TestAgenda extends Application {
 			BorderPane root = (BorderPane) FXMLLoader.load(getClass()
 			                    .getResource("/agenda/vista/GuiAgenda.fxml"));
 			Scene scene = new Scene(root, 1100, 700);
-			scene.getStylesheets()
-			                    .add(getClass().getResource("/application.css")
-			                                        .toExternalForm());
+			//scene.getStylesheets()
+			//                    .add(getClass().getResource("/application.css")
+			//                                        .toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Agenda de contactos con Scene Builder");
 			primaryStage.show();

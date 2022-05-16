@@ -13,3 +13,4 @@ bin/*
 /personales-relacion.txt
 /.idea/artifacts/AgendaContactosFases_SOL_jar.xml
 /src/META-INF/MANIFEST.MF
+/.idea/artifacts/*
