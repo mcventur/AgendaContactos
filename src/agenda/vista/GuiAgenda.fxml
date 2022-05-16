@@ -147,7 +147,7 @@
          <center>
             <TextArea fx:id="areaTexto" prefHeight="353.0" prefWidth="467.0" styleClass="text-area" BorderPane.alignment="CENTER">
                <BorderPane.margin>
-                  <Insets top="10.0" />
+                  <Insets bottom="7.0" top="10.0" />
                </BorderPane.margin>
             </TextArea>
          </center>
