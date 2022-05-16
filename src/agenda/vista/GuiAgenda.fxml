@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.input.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="577.0" prefWidth="707.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agenda.controlador.ControladorAgenda">
+<BorderPane prefHeight="577.0" prefWidth="707.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agenda.controlador.ControladorAgenda">
    <top>
       <MenuBar fx:id="barraMenu" prefHeight="35.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <menus>
             <Menu mnemonicParsing="false" text="_Archivo">
               <items>
-                <MenuItem mnemonicParsing="false" text="Importar Agenda">
+                <MenuItem fx:id="itemImportar" mnemonicParsing="false" text="Importar Agenda">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem disable="true" mnemonicParsing="false" text="Exportar personales">
+                  <MenuItem fx:id="itemExportar" disable="true" mnemonicParsing="false" text="Exportar personales">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Salir">
+                  <MenuItem fx:id="itemSalir" mnemonicParsing="false" text="Salir">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -34,7 +46,15 @@
             </Menu>
             <Menu mnemonicParsing="false" text="_Operaciones">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="itemBuscar" mnemonicParsing="false" text="Buscar">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+                  <MenuItem fx:id="itemFelicitar" mnemonicParsing="false" text="Felicitar">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
               </items>
                <accelerator>
                   <KeyCodeCombination alt="DOWN" code="O" control="UP" meta="UP" shift="UP" shortcut="UP" />
@@ -42,7 +62,10 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="itemAbout" mnemonicParsing="false" text="About">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
               </items>
                <accelerator>
                   <KeyCodeCombination alt="DOWN" code="H" control="UP" meta="UP" shift="UP" shortcut="UP" />
@@ -133,14 +156,14 @@
                         <Insets bottom="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Button layoutX="20.0" layoutY="119.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Contactos personales en letra" />
-                  <Button layoutX="20.0" layoutY="155.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Contactos personales&#10;ordenados por fecha" />
-                  <Button layoutX="20.0" layoutY="191.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Clear">
+                  <Button fx:id="btnPesonalesEnLetra" layoutX="20.0" layoutY="119.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Contactos personales en letra" />
+                  <Button fx:id="btnPersonalesFechaNac" layoutX="20.0" layoutY="155.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Contactos personales&#10;ordenados por fecha" />
+                  <Button fx:id="btnClear" layoutX="20.0" layoutY="191.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Clear">
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Button layoutX="20.0" layoutY="227.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Salir" />
+                  <Button fx:id="btnSalir" layoutX="20.0" layoutY="227.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Salir" />
                </children>
             </VBox>
          </left>
