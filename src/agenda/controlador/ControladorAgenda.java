@@ -8,11 +8,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
-
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -29,53 +26,27 @@ public class ControladorAgenda {
 	@FXML
 	private TextArea areaTexto;
 
-	@FXML
-	private MenuBar barraMenu;
 
-	@FXML
-	private Button btnClear;
 
-	@FXML
-	private Button btnListar;
 
-	@FXML
-	private Button btnPersonalesFechaNac;
 
-	@FXML
-	private Button btnPesonalesEnLetra;
 
-	@FXML
-	private Button btnSalir;
-
-	@FXML
-	private MenuItem itemAbout;
-
-	@FXML
-	private MenuItem itemBuscar;
 
 	@FXML
 	private MenuItem itemExportar;
 
-	@FXML
-	private MenuItem itemFelicitar;
 
 	@FXML
 	private MenuItem itemImportar;
 
-	@FXML
-	private MenuItem itemSalir;
 
 	@FXML
 	private GridPane panelLetras;
 
-	@FXML
-	private RadioButton rbtListarNumero;
 
 	@FXML
 	private RadioButton rbtListarTodos;
 
-	@FXML
-	private ToggleGroup toogleLista;
 
 	@FXML
 	private TextField txtBuscar;
@@ -276,8 +247,8 @@ public class ControladorAgenda {
 
 	private String fechaHoy() {
 		LocalDate hoy = LocalDate.now();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-		return hoy.format(dtf).toString();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return hoy.format(dtf);
 	}
 
 
