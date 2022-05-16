@@ -3,6 +3,7 @@ package agenda.test;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -13,6 +14,8 @@ public class TestAgenda extends Application {
 			BorderPane root = (BorderPane) FXMLLoader.load(getClass()
 			                    .getResource("/agenda/vista/GuiAgenda.fxml"));
 			Scene scene = new Scene(root, 1100, 700);
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(
+					"/images/addressbook-icon.png")));
 			//scene.getStylesheets()
 			//                    .add(getClass().getResource("/application.css")
 			//                                        .toExternalForm());
