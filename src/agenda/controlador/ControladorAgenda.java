@@ -2,23 +2,27 @@ package agenda.controlador;
 
 import agenda.io.AgendaIO;
 import agenda.modelo.AgendaContactos;
+import agenda.modelo.Contacto;
+import agenda.modelo.Personal;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 public class ControladorAgenda {
 
+	private static final String FALTA_IMPORTAR = "Es necesario importar los contactos antes de ejecutar esta función";
 	AgendaContactos agenda;
 	@FXML
 	private TextArea areaTexto;
@@ -78,13 +82,16 @@ public class ControladorAgenda {
 		agenda = new AgendaContactos();
 	}
 
+	@FXML
 	void initialize(){
+		//En esta función asignamos los eventos correspondientes a cada elemento
 		for (Node child : panelLetras.getChildren()) {
 			if(child instanceof Button){
-				((Button) child).setOnAction(e->contactosEnLetra());
+				((Button) child).setOnAction(e->contactosEnLetra(((Button) child).getText().charAt(0)));
 			}
 		}
 	}
+	@FXML
 	private void importarAgenda() {
 		FileChooser selector = new FileChooser();
 		selector.setTitle("Abrir fichero csv");
@@ -107,7 +114,7 @@ public class ControladorAgenda {
 		}
 
 	}
-
+	@FXML
 	private void exportarPersonales() {
 		FileChooser selector = new FileChooser();
 		selector.setTitle("Exportar contactos personales por relación");
@@ -130,6 +137,7 @@ public class ControladorAgenda {
 	/**
 	 *
 	 */
+	@FXML
 	private void listar() {
 		clear();
 		if(itemImportar.isDisable()){//Ya se ha hecho la importacion
@@ -144,7 +152,7 @@ public class ControladorAgenda {
 		}
 
 	}
-
+	@FXML
 	private void personalesOrdenadosPorFecha() {
 		clear();
 		if (itemImportar.isDisable()) {
@@ -173,7 +181,7 @@ public class ControladorAgenda {
 		}
 
 	}
-
+	@FXML
 	private void contactosPersonalesEnLetra() {
 		clear();
 		if (itemImportar.isDisable()) {
@@ -221,7 +229,7 @@ public class ControladorAgenda {
 		Optional<Character> resul = dialogo.showAndWait();
 		return resul;
 	}
-
+	@FXML
 	private void contactosEnLetra(char letra) {
 		clear();
 		if(itemImportar.isDisable()){//Ya se ha hecho la importacion
@@ -242,7 +250,7 @@ public class ControladorAgenda {
 			areaTexto.setText(FALTA_IMPORTAR);
 		}
 	}
-
+	@FXML
 	private void felicitar() {
 		clear();
 		if(itemImportar.isDisable()){//Si ya se han importado los contactos
@@ -270,6 +278,8 @@ public class ControladorAgenda {
 		return hoy.format(dtf).toString();
 	}
 
+
+	@FXML
 	private void buscar() {
 		clear();
 		String buscar = txtBuscar.getText();
@@ -290,22 +300,22 @@ public class ControladorAgenda {
 		cogerFoco();
 
 	}
-
+	@FXML
 	private void about() {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("About Agenda de contactos");
 		alert.setHeaderText(null);
 		DialogPane dialogPane = alert.getDialogPane();
 		dialogPane.getStylesheets().add(getClass().
-				getResource("/application.css").toExternalForm());
+				getResource("/agenda/vista/application.css").toExternalForm());
 		alert.setContentText("Mi agenda de contactos");
 		alert.showAndWait();
 	}
-
+	@FXML
 	private void clear() {
 		areaTexto.setText("");
 	}
-
+	@FXML
 	private void salir() {
 		Platform.exit();
 	}

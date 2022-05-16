@@ -16,9 +16,7 @@ public class AgendaIO {
 	public static int importar(AgendaContactos agenda, String nomFichero) throws IOException{
 		int errores=0;
 		Contacto c = null;
-		InputStream input = AgendaIO.class.getClassLoader()
-				.getResourceAsStream(nomFichero);
-		try(BufferedReader entrada = new BufferedReader(new InputStreamReader(input))){
+		try(BufferedReader entrada = new BufferedReader(new FileReader(nomFichero))){
 			String linea = entrada.readLine();
 			while(linea!=null){
 				try {

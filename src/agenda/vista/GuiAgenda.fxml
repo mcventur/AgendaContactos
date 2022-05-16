@@ -23,18 +23,18 @@
          <menus>
             <Menu mnemonicParsing="false" text="_Archivo">
               <items>
-                <MenuItem fx:id="itemImportar" mnemonicParsing="false" text="Importar Agenda">
+                <MenuItem fx:id="itemImportar" mnemonicParsing="false" onAction="#importarAgenda" text="Importar Agenda">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="I" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem fx:id="itemExportar" disable="true" mnemonicParsing="false" text="Exportar personales">
+                  <MenuItem fx:id="itemExportar" disable="true" mnemonicParsing="false" onAction="#exportarPersonales" text="Exportar personales">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="E" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="itemSalir" mnemonicParsing="false" text="Salir">
+                  <MenuItem fx:id="itemSalir" mnemonicParsing="false" onAction="#salir" text="Salir">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -46,11 +46,11 @@
             </Menu>
             <Menu mnemonicParsing="false" text="_Operaciones">
               <items>
-                <MenuItem fx:id="itemBuscar" mnemonicParsing="false" text="Buscar">
+                <MenuItem fx:id="itemBuscar" mnemonicParsing="false" onAction="#buscar" text="Buscar">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-                  <MenuItem fx:id="itemFelicitar" mnemonicParsing="false" text="Felicitar">
+                  <MenuItem fx:id="itemFelicitar" mnemonicParsing="false" onAction="#felicitar" text="Felicitar">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -62,7 +62,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
               <items>
-                <MenuItem fx:id="itemAbout" mnemonicParsing="false" text="About">
+                <MenuItem fx:id="itemAbout" mnemonicParsing="false" onAction="#about" text="About">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
@@ -140,7 +140,7 @@
                   <Insets right="10.0" top="10.0" />
                </BorderPane.margin>
                <children>
-                  <TextField fx:id="txtBuscar" minHeight="40.0" promptText="Buscar">
+                  <TextField fx:id="txtBuscar" minHeight="40.0" onKeyPressed="#onKeyBuscar" promptText="Buscar">
                      <VBox.margin>
                         <Insets bottom="40.0" />
                      </VBox.margin>
