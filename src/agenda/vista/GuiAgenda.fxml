@@ -140,7 +140,7 @@
                   <Insets right="10.0" top="10.0" />
                </BorderPane.margin>
                <children>
-                  <TextField fx:id="txtBuscar" minHeight="40.0" onKeyPressed="#onKeyBuscar" promptText="Buscar">
+                  <TextField fx:id="txtBuscar" minHeight="40.0" onAction="#buscar" promptText="Buscar">
                      <VBox.margin>
                         <Insets bottom="40.0" />
                      </VBox.margin>
@@ -150,20 +150,20 @@
                         <ToggleGroup fx:id="toogleLista" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="rbtListarNumero" mnemonicParsing="false" text="Listar nº contactos" />
-                  <Button fx:id="btnListar" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Listar">
+                  <RadioButton fx:id="rbtListarNumero" mnemonicParsing="false" text="Listar nº contactos" toggleGroup="$toogleLista" />
+                  <Button fx:id="btnListar" mnemonicParsing="false" onAction="#listar" prefWidth="250.0" styleClass="botones" text="Listar">
                      <VBox.margin>
                         <Insets bottom="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnPesonalesEnLetra" layoutX="20.0" layoutY="119.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Contactos personales en letra" />
-                  <Button fx:id="btnPersonalesFechaNac" layoutX="20.0" layoutY="155.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Contactos personales&#10;ordenados por fecha" />
-                  <Button fx:id="btnClear" layoutX="20.0" layoutY="191.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Clear">
+                  <Button fx:id="btnPesonalesEnLetra" layoutX="20.0" layoutY="119.0" mnemonicParsing="false" onAction="#contactosPersonalesEnLetra" prefWidth="250.0" styleClass="botones" text="Contactos personales en letra" />
+                  <Button fx:id="btnPersonalesFechaNac" layoutX="20.0" layoutY="155.0" mnemonicParsing="false" onAction="#personalesOrdenadosPorFecha" prefWidth="250.0" styleClass="botones" text="Contactos personales&#10;ordenados por fecha" />
+                  <Button fx:id="btnClear" layoutX="20.0" layoutY="191.0" mnemonicParsing="false" onAction="#clear" prefWidth="250.0" styleClass="botones" text="Clear">
                      <VBox.margin>
                         <Insets top="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnSalir" layoutX="20.0" layoutY="227.0" mnemonicParsing="false" prefWidth="250.0" styleClass="botones" text="Salir" />
+                  <Button fx:id="btnSalir" layoutX="20.0" layoutY="227.0" mnemonicParsing="false" onAction="#salir" prefWidth="250.0" styleClass="botones" text="Salir" />
                </children>
             </VBox>
          </left>
